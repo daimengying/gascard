@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="UTF-8">
+    <title>管理员信息</title>
+    <link rel="stylesheet"  th:href="@{/plugins/zTree/css/zTreeStyle/zTreeStyle.css}" />
+    <style type="text/css">
+        .dpContent{
+            height: 150px;
+            width: 220px;
+            overflow:auto;
+        }
+    </style>
+</head>
+<body>
+<div class="widget-box">
+    <div class="widget-body">
+        <div class="widget-main">
+            <div id="fuelux-wizard-container" class="no-steps-container">
+                <form  th:method="post" id="addOrEditAdminForm" class="form-horizontal">
+                    <input type="hidden" value=""  id="nodeIds" name="userMenuIds">
+                    <input type="hidden" value="2"  id="roleType" name="roleType">
+                    <input type="hidden" th:value="${admin?.id} "  id="id" name="id">
+                    <div class="form-group">
+                        <label  class="control-label col-xs-12 col-sm-3 no-padding-right">管理员账号 :</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="username" th:value="${admin?.username} " id="username"  class="col-xs-12 col-sm-6">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="control-label col-xs-12 col-sm-3 no-padding-right">密码:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input  type="password" name="password" th:value="${admin?.password}" id="password"  class="col-xs-12 col-sm-6">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="control-label col-xs-12 col-sm-3 no-padding-right">管理员名称 :</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="name" th:value="${admin?.name} " id="name"  class="col-xs-12 col-sm-6">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="control-label col-xs-12 col-sm-3 no-padding-right">电话 :</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="phone" value="" id="phone"  class="col-xs-12 col-sm-6">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="control-label col-xs-12 col-sm-3 no-padding-right">菜单权限 :</label>
+                        <div class="dpContent"><ul id="menuZtree" class="ztree"></ul></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="close">关闭</button>
+                        <button class="btn btn-primary" type="button" id="saveAdmin" onclick="UserManager.addOrEditAdmin();">保存内容</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    window.allMenu = [[${allMenu}]];
+    userHasMenu=[[${getHasMenu}]];
+    UserManager.initMenuTree();
+    var treeObj = $.fn.zTree.getZTreeObj("menuZtree");
+    if(userHasMenu!=null){
+        treeObj.checkAllNodes(false);//先取消所有check选中节点
+        for(var i=0;i<userHasMenu.length;i++){
+            var userMenu=userHasMenu[i];
+            var node = treeObj.getNodeByParam("id",userMenu.menuId,null);
+            treeObj.checkNode(node, true, true);
+            treeObj.expandNode(node, true, false);//将指定ID节点展开
+        }
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="UTF-8">
+    <title>外放价格</title>
+    <style type="text/css">
+        .col-sm-10{
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="widget-box">
+    <div class="widget-body">
+        <div class="widget-main">
+            <div id="fuelux-wizard-container" class="no-steps-container">
+                <form  th:method="post" id="addPriceForm" class="form-horizontal">
+                    <input type="hidden" value=""  id="priceId" name="id">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">代理商 :</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="account"  id="account" th:value="${outPriceInfo?.account}" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">油卡类型 :</label>
+                        <div class="col-sm-10">
+                            <select name=type id="type" onchange="PriceManage.changeType()">
+                                <option value="1" >中国石油</option>
+                                <option value="2" >中国石化</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">面值 :</label>
+                        <div class="col-sm-10">
+                            <select name=amount id="amount" onchange="OutPriceManage.changeAmount()">
+                                <option value="0">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">最低成本 :</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="price"  id="price" value="" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">外放价 :</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="outPrice"  id="outPrice" th:value="${outPriceInfo?.outPrice}" class="form-control" >
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="close">关闭</button>
+                        <button class="btn btn-primary" type="button" id="saveAdmin" onclick="OutPriceManage.addOrEditOutPrice();">保存内容</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    //默认加载中石油所有面值选项
+    PriceManage.changeType();
+    outPriceInfo = [[${outPriceInfo}]];
+    setTimeout(function(){
+        if(outPriceInfo){
+            $("#priceId").val(outPriceInfo.id);
+            //编辑页初始化
+            $("#type").val(outPriceInfo.type);
+            $("#amount").val(outPriceInfo.amount);
+            $("#type option[value='"+outPriceInfo.type+"']").attr("selected", true);
+            $("#amount option[value='"+outPriceInfo.amount+"']").attr("selected", true);
+            OutPriceManage.changeAmount();
+        }
+    },200);
+</script>
+</html>

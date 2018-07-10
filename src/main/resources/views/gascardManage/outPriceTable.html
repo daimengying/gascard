@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  lang="zh-CN">
+<head >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <!-- 适配移动端 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>油卡管理</title>
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link th:href="@{/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+    <div th:include="/head :: head" th:remove="tag"></div>
+    <style  type="text/css">
+        .form-group {
+            padding-left: 12px;
+        }
+
+    </style>
+</head>
+
+<body class="no-skin">
+<div th:include="/head :: #common" th:remove="tag"></div>
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content" style="min-height: 900px ;">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 class="header smaller lighter blue">外放管理</h3>
+
+                            <div class="clearfix">
+                                <div class="pull-right tableTools-container"></div>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content">
+
+                            <div class="example-wrap">
+                                <div class="example">
+                                    <div class="form-inline">
+                                        <div class="form-group" >
+                                            <div class="form-group" >
+                                                <label for="account">代理商： </label>
+                                                <input type="text" class="form-control" id="account" value=""/>
+                                            </div>
+
+                                            <label >油卡类型： </label>
+                                            <select name=type id="type">
+                                                <option value="">全部</option>
+                                                <option value="1">中国石油</option>
+                                                <option value="2">中国石化</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label for="amount">面值： </label>
+                                            <input type="text" class="form-control" id="amount" value=""/>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <button type="button" class="form-control" onclick="OutPriceManage.search('outPriceTable')" >
+                                                <i class="glyphicon glyphicon-search" aria-hidden="true" > 搜索 </i>
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="btn-group hidden-xs" id="outPriceToolbar" role="group">
+                                        <button type="button" class="btn btn-outline btn-default" onclick="OutPriceManage.showModel('')">
+                                            <i class="glyphicon glyphicon-plus" aria-hidden="true" ></i>
+                                        </button>
+                                        <!--显示添加油卡模态框-->
+                                        <div th:include="/common :: #myModal" th:remove="tag"></div>
+                                        <button type="button" class="btn btn-outline btn-default" onclick="OutPriceManage.deletePrices('outPriceTable', '/gascardManage/deleteOutPrice', true)">
+                                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline btn-default" id="editOutPrice">
+                                            <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <table id="outPriceTable" data-mobile-responsive="true">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th data-field="id" data-align="center">编号</th>
+                                            <th data-field="account" data-align="center">代理商账号</th>
+                                            <th data-field="name" data-align="center">油卡名称</th>
+                                            <th data-field="amount" data-align="center" >面值</th>
+                                            <th data-field="type" data-align="center" >油卡类型</th>
+                                            <th data-field="lowestPrice" data-align="center" >最低成本</th>
+                                            <th data-field="outPrice" data-align="center" >外放价格</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="/head :: commonjs" th:remove="tag"></div>
+<script th:src="@{/js/gascardManage/outPriceTable.js}"+tt=Math.random() type="text/javascript"></script>
+<script th:src="@{/js/gascardManage/cardPriceTable.js}"+tt=Math.random() type="text/javascript"></script>
+</body>
+</html>
