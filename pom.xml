@@ -228,27 +228,15 @@
 			<version>1.9.1</version>
 		</dependency>
 
+		<!-- quratz调度框架-->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+
 
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<activatedProperties>dev</activatedProperties>
-			</properties>
-		</profile>
-		<profile>
-			<id>pro</id>
-			<properties>
-				<activatedProperties>pro</activatedProperties>
-			</properties>
-		</profile>
-	</profiles>
-
 
 	<build>
 		<!--<resources>
