@@ -1,4 +1,4 @@
-package com.lirong.gascard.Aspect;
+package com.lirong.gascard.aspect;
 
 import com.lirong.gascard.utils.CacheUtils;
 import org.aspectj.lang.JoinPoint;
@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.regex.Pattern;
 public class CacheRemoveAspect {
     private Logger _logger = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut(value = "(execution(* com.lirong.gascard.service.impl..*.*(..)) && @annotation(com.lirong.gascard.Aspect.CacheRemove))")
+    @Pointcut(value = "(execution(* com.lirong.gascard.service.impl..*.*(..)) && @annotation(com.lirong.gascard.aspect.CacheRemove))")
     private void pointcut() {}
 
     @AfterReturning(value = "pointcut()")

@@ -12,7 +12,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <!-- ch.qos.logback.core.ConsoleAppender 表示控制台输出 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
+            <level>DEBUG</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
@@ -100,7 +100,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 
     <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>DEBUG</level>
         </filter>
         <destination>139.129.220.55:8082</destination>
         <encoder chareset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
